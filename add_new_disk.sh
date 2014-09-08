@@ -4,7 +4,7 @@ echo -e "n\nl\n\n+10G\nw\n" | sudo fdisk /dev/sdb
 echo -e "n\nl\n\n+10G\nw\n" | sudo fdisk /dev/sdb
 
 sudo mkfs.ext4 /dev/sdb5
-sudo mkfs.ext4 /dev/sdc6
+sudo mkfs.ext4 /dev/sdb6
 
 sudo mount /dev/sdb5 /media
 cd /opt
