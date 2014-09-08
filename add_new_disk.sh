@@ -1,3 +1,4 @@
+sudo set -x
 sudo init 1
 echo -e "n\ne\n1\n\n\nw\n" | sudo fdisk /dev/sdb
 echo -e "n\nl\n1\n\n\nw\n" | sudo fdisk /dev/sdb
