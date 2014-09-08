@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-file_to_disk = './tmp/large_disk.vdi'
 VAGRANTFILE_API_VERSION = "2"
+FILE_TO_DISK = './tmp/large_disk.vdi'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "basic_centos_64"
@@ -13,26 +13,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
     v.memory = 1024
     v.cpus = 2
-    v.customize ['createhd', '--filename', file_to_disk, '--size', 12 * 1024]
-    v.customize [
-        'storageattach', 
-        :id,
-        '--storagectl',
-        'SATA Controller',
-        '--port',
-        1,
-        '--device',
-        0,
-        '--type',
-        'hdd',
-        '--medium',
-        file_to_disk]
+    if File.exist?(FILE_TO_DISK)
+        FileUtils.rm(FILE_TO_DISK)
+    end
+
+    v.customize  ['createhd', '--filename', FILE_TO_DISK, '--size', 12 * 1024]
+    v.customize  ['storageattach', :id, '--storagectl', 'SATA', '--port', 1, 
+                  '--device', 0, '--type', 'hdd', '--medium', FILE_TO_DISK]
   end
 
 
   #config.vm.provision :shell, path: "install_chef.sh"
-
-
 
 
 end
