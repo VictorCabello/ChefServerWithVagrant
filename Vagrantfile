@@ -3,8 +3,7 @@
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
-FILE_OPT_DISK = './tmp/opt_disk.vdi'
-FILE_VAR_DISK = './tmp/var_disk.vdi'
+FILE_DISK = './tmp/large_disk.vdi'
 GIGA_SIZE = 1024
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -16,32 +15,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.memory = 2048
     v.cpus = 2
 
-    if File.exist?(FILE_OPT_DISK)
-        FileUtils.rm(FILE_OPT_DISK)
+    if File.exist?(FILE_DISK)
+        FileUtils.rm(FILE_DISK)
     end
     v.customize  ['createhd', 
-                  '--filename', FILE_OPT_DISK, 
-                  '--size', 6 * 1024]
+                  '--filename', FILE_DISK, 
+                  '--size', 12 * GIGA_SIZE]
     v.customize  ['storageattach', :id, 
                   '--storagectl', 'SATA',
                   '--port', 1, 
                   '--device', 0, 
                   '--type', 'hdd', 
-                  '--medium', FILE_OPT_DISK]
-
-    if File.exist?(FILE_VAR_DISK)
-        FileUtils.rm(FILE_VAR_DISK)
-    end
-
-    v.customize  ['createhd', 
-                  '--filename', FILE_VAR_DISK, 
-                  '--size', 6 * GIGA_SIZE]
-    v.customize  ['storageattach', :id, 
-                  '--storagectl', 'SATA',
-                  '--port', 0, 
-                  '--device', 0, 
-                  '--type', 'hdd', 
-                  '--medium', FILE_VAR_DISK]
+                  '--medium', FILE_DISK]
   end
 
 
