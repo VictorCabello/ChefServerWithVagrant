@@ -38,8 +38,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                   '--size', 6 * GIGA_SIZE]
     v.customize  ['storageattach', :id, 
                   '--storagectl', 'SATA',
-                  '--port', 2, 
-                  '--device', 1, 
+                  '--port', 0, 
+                  '--device', 0, 
                   '--type', 'hdd', 
                   '--medium', FILE_VAR_DISK]
   end
