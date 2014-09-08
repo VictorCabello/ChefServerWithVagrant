@@ -5,4 +5,5 @@ sudo service iptable stop
 sudo hostname 'chefserver.intech.com'
 echo "chefserver.intech.com" | sudo tee /etc/hostname
 echo -e "127.0.0.2 `hostname` `hostname -s`" | sudo tee -a /etc/hosts
+sudo service iptables stop
 sudo private-chef-ctl reconfigure
