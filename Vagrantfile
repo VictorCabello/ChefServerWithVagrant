@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     v.customize  ['createhd', 
                   '--filename', FILE_DISK, 
-                  '--size', 12 * GIGA_SIZE]
+                  '--size', 21 * GIGA_SIZE]
     v.customize  ['storageattach', :id, 
                   '--storagectl', 'SATA',
                   '--port', 1, 
